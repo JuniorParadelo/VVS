@@ -93,10 +93,10 @@
     <!-- ========================================================== -->
     <!-- Additional repositories -->
     <repositories>
-    	<repository>
-    		<id>my-local-repo</id>
-    		<url>file://${basedir}/my-repo</url>
-    	</repository>
+	<repository>
+		<id>my-local-repo</id>
+		<url>file://${basedir}/lib</url>
+	</repository>
     </repositories>
 
     <!-- ========================================================== -->
