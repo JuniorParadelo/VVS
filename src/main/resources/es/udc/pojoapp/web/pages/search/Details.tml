@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+
+<thead>
+	<t:if test="userSession">
+		<t:if test="userSession.admin">
+			<t:if test="${fecha}">
+				<big><a href="#" t:type="PageLink" t:page="create/BetTypes"
+					t:context="event.id"> ${event.name} </a></big>
+				<p:else>
+					<big>${event.name}</big>
+				</p:else>
+			</t:if>
+			<p:else>
+				<big>${event.name}</big>
+			</p:else>
+		</t:if>
+		<p:else>
+			<big>${event.name}</big>
+		</p:else>
+	</t:if>
+
+</thead>
+<!-- Print events. -->
+<t:if test="event.betTypes">
+	<table class="table table-striped table-hover">
+
+		<tbody>
+			<tr t:type="Loop" t:source="event.betTypes" t:value="betType">
+				<t:if test="userSession">
+					<t:if test="userSession.admin">
+						<t:if negate="true" test="${fecha}">
+							<t:If t:test="getVersion(betType)">
+								<td><big><a href="#" t:type="PageLink"
+										t:page="update/BetTypes" t:context="betType.id">
+											${betType.question} </a></big></td>
+								<p:else>
+									<td><big>${betType.question}</big></td>
+								</p:else>
+							</t:If>
+						<p:else>
+							<td><big>${betType.question}</big></td>
+						</p:else>
+					</t:if>
+					<p:else>
+						<td><big>${betType.question}</big></td>
+					</p:else>
+				</t:if>
+				<p:else>
+						<td><big>${betType.question}</big></td>
+				</p:else>
+			</t:if>
+			<tr t:type="Loop" t:source="betType.options" t:value="option">
+				<t:if test="${fecha}==Boolean.TRUE">
+					<t:if test="userSession">
+						<t:if test="userSession.admin">
+							<td>${option.name}</td>
+							<p:else>
+								<td><p>
+										<t:actionlink t:id="apostar2" context="option.id">${option.name}</t:actionlink>
+									</p></td>
+							</p:else>
+						</t:if>
+						<p:else>
+							<td><p>
+									<t:actionlink t:id="apostar" context="option.id">${option.name}</t:actionlink>
+								</p></td>
+						</p:else>
+					</t:if>
+					<p:else>
+						<td>${option.name}</td>
+					</p:else>
+				</t:if>
+				<td><t:output value="option.coute" format="format" /></td>
+			</tr>
+		</tr>
+		</tbody>
+
+	</table>
+</t:if>
+</html>

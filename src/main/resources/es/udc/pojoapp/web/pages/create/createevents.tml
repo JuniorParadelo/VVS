@@ -1,0 +1,39 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title">
+
+<form t:type="Form" class="form-horizontal" t:id="createEventForm">
+
+	<t:errors/>
+
+    <div class="form-group">
+    	<t:label for="nameEvent" class="col-md-offset-3 col-md-2"/>
+        <div class="col-md-3">
+        	<input t:type="TextField" t:id="nameEvent" 
+			       t:validate="required" size="100" maxlength="100" />
+        </div>
+    </div>
+	 
+	 <div class="form-group">
+    	<t:label for="eventDate" class="col-md-offset-3 col-md-2"/>
+        <div class="col-md-3">
+            <input t:type="TextField" t:id="eventDate" t:validate="required"
+            	size="20" minlength="19" maxlength="20"/>
+        </div>
+    </div>
+       
+    <div class="form-group">
+        <t:label for="categoriaId" class="col-md-offset-3 col-md-2"/>
+        <div class="col-md-3">
+			<t:select t:id="categoriaId" model="categorias" validate="required"/>
+        </div>
+    </div>
+  
+    <div class="form-group">
+    	<div class="col-md-offset-5 col-md-1">
+    		<button type="submit" class="btn btn-primary">${message:create}</button>
+		</div>
+    </div>
+
+</form>
+				
+</html>

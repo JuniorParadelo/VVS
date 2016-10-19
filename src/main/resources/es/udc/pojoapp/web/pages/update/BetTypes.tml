@@ -1,0 +1,24 @@
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	t:type="Layout" t:title="title">
+
+<form t:type="Form" class="form-horizontal" t:id="updateBetTypeForm">
+
+	<t:errors/>
+
+	<tr>${betType.question}</tr>
+
+    <tr>
+    	<td><t:Checklist t:id="checklist" t:model="listvalues" t:encoder="stringValueEncoder" t:selected="checklistSelectedValues"/></td>
+    	<td>${checklistSelectedValues}</td>
+    </tr>
+  
+    <div class="form-group">
+    	<div class="col-md-offset-5 col-md-1">
+    		<button type="submit" class="btn btn-primary">${message:update}</button>
+		</div>
+    </div>
+
+</form>
+				
+</html>
+

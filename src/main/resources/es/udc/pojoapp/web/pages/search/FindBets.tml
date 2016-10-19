@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+	xmlns:p="tapestry:parameter" t:type="Layout" t:title="title">
+
+<t:if test="bets">
+
+	<!-- Print user accounts. -->
+	<t:zone t:id="betZone" id="betZone">
+		<table id="table" class="table table-striped table-hover">
+
+			<thead>
+				<tr>
+					<th>${message:evento-label}</th>
+					<th>${message:evento-data-label}</th>
+					<th>${message:bet-label}</th>
+					<th>${message:option-label}</th>
+					<th>${message:date-label}</th>
+					<th>${message:amount-label}</th>
+					<th>${message:win-label}</th>
+					<th>${message:win-amount-label}</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr t:type="Loop" t:source="bets" t:value="bet">
+					<td>${bet.option.betType.event.name}</td>
+					<td><t:output value="bet.option.betType.event.date.time"
+							format="formatd" /></td>
+					<td>${bet.option.betType.question}</td>
+					<td>${bet.option.name}</td>
+					<td><t:output value="bet.date.time" format="formatd" /></td>
+					<td><t:output value="bet.betamount" format="format" /></td>
+					<t:If t:test="pending">
+						<td>${message:pendiente}</td>
+						<td>${message:win-amount-pendiente}</td>
+						<p:else>
+							<t:If t:test="bet.option.win">
+								<td>${message:win}</td>
+								<td><t:output value="bet.ganancia" format="format" /></td>
+								<p:else>
+									<td>${message:lose}</td>
+									<td>${message:win-amount-cero}</td>
+								</p:else>
+							</t:If>
+						</p:else>
+					</t:If>
+				</tr>
+			</tbody>
+
+		</table>
+	</t:zone>
+
+	<!-- "Previous" and "Next" links. -->
+
+	<ul class="pager">
+<t:zone t:id="botonZone" id="botonZone">
+		<t:if test="previousLinkContext">
+			<li>
+				<t:actionlink t:id="atras" t:zone="betZone">${message:link-previous}</t:actionlink>
+			</li>
+		</t:if>
+
+		<li>&nbsp;</li>
+
+		<t:if test="nextLinkContext">
+			<li>
+				<t:actionlink t:id="adelante" t:zone="betZone">${message:link-next}</t:actionlink>
+			</li>
+		</t:if>
+</t:zone>
+	</ul>
+
+	<p:else>
+		<h4 class="alert alert-danger text-center">${message:noBets}</h4>
+	</p:else>
+
+</t:if>
+
+</html>
