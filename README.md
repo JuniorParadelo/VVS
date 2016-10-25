@@ -1,6 +1,6 @@
 # Práctica VVS
 
-![N|Solid](https://travis-ci.org/JuniorParadelo/VVS.svg?branch=master)
+[![Build Status](https://travis-ci.org/JuniorParadelo/VVS.svg?branch=master)](https://travis-ci.org/JuniorParadelo/VVS)
 
 # Logins
   - Brais Álvarez Sanchez (brais.alvarez)
