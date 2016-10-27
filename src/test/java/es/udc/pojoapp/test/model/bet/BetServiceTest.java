@@ -180,20 +180,4 @@ public class BetServiceTest {
 		Bet bet = betService.createBet(betType.getOptions().get(0).getId(), 67L, apuesta);
 	}
 
-	// PR-UN-026
-	@Test(expected = EventEmpezadoException.class)
-	public void testCreateBetAndFindBet4() throws InstanceNotFoundException, DuplicateInstanceException,
-			EventEmpezadoException, PastEventException, DuplicateEventException, BetTypesIgualesException {
-
-		Category category = createCat();
-		Calendar date = Calendar.getInstance();
-		date.add(Calendar.DAY_OF_MONTH, -5);
-		Event event = eventService.createEvent("Deportivo - Real Madrid", date, category.getIdentificador());
-		BetType betType = createBetType(event);
-		UserProfile user = createUser();
-		Float apuesta = (float) 15;
-		Bet bet = betService.createBet(betType.getOptions().get(0).getId(), user.getUserProfileId(), apuesta);
-
-	}
-
 }
