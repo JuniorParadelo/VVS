@@ -292,15 +292,15 @@
 	        <plugin>
 	        	<groupId>org.pitest</groupId>
 	        	<artifactId>pitest-maven</artifactId>
-	        	<version>LATEST</version>
+	        	<version>1.1.9</version>
 	        	<configuration>
-	        		<mutators>
-	        			<mutator>ALL</mutator>
-	        		</mutators>
-	        		<threads>10</threads>
+	        		<threads>2</threads>
 	        		<targetClasses>
-	        			<param>es.udc.pojoapp.model*</param>
+	        			<param>es.udc.pojoapp.model.*</param>
 	        		</targetClasses>
+	        		<testClasses>
+	        			<param>es.udc.pojoapp.test.model.*</param>
+	        		</testClasses>
 	        	</configuration>
 	        </plugin>
 	        
