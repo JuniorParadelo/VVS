@@ -289,6 +289,22 @@
 	             Added to avoid problems with the maven plugin for 
 				 eclipse
 	        -->
+	        <plugin>
+	        	<groupId>org.pitest</groupId>
+	        	<artifactId>pitest-maven</artifactId>
+	        	<version>LATEST</version>
+	        	<configuration>
+	        		<mutators>
+	        			<mutator>ALL</mutator>
+	        		</mutators>
+	        		<threads>10</threads>
+	        		<targetClasses>
+	        			<param>es.udc.pojoapp.model*</param>
+	        		</targetClasses>
+	        	</configuration>
+	        </plugin>
+	        
+	        
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
