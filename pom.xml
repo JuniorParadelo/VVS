@@ -291,20 +291,22 @@
 	        -->
 	        <plugin>
 	        	<groupId>org.pitest</groupId>
-	        	<artifactId>pitest-maven</artifactId>
-	        	<version>1.1.9</version>
+	        	<artifactId>pitest</artifactId>
+	        	<version>1.1.11</version>
 	        	<configuration>
 	        		<threads>2</threads>
+	        		<excludedClasses>
+			            <param>es.udc.pojoapp.web.*</param>
+			            <param>**.*UserWebTest</param>                          
+			        </excludedClasses>
 	        		<targetClasses>
 	        			<param>es.udc.pojoapp.model.*</param>
 	        		</targetClasses>
 	        		<testClasses>
-	        			<param>es.udc.pojoapp.test.model.*</param>
+	        			<param>es.udc.pojoapp.test.*.*</param>
 	        		</testClasses>
 	        	</configuration>
 	        </plugin>
-	        
-	        
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -336,6 +338,33 @@
 
             <!-- ========================================================== -->
             <!-- Compiler configuration -->
+            <plugin>
+            	<groupId>org.jacoco</groupId>
+            	<artifactId>jacoco-maven-plugin</artifactId>
+            	<version>0.7.7.201606060606</version>
+            	<configuration>
+            		<excludes>
+            			<exclude>**/Layout.java</exclude>
+            			<exclude>**/Index.java</exclude>
+            			<exclude>**/BetCreated.java</exclude>
+            			<exclude>**/Bets.java</exclude>
+            		</excludes>
+            	</configuration>
+            	<executions>
+            		<execution>
+            			<id>default-prepare-agent</id>
+            			<goals>
+            				<goal>prepare-agent</goal>
+            			</goals>
+            		</execution>
+            		<execution>
+            			<id>default-report</id>
+            			<goals>
+            				<goal>report</goal>
+            			</goals>
+            		</execution>
+            	</executions>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
