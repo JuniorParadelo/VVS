@@ -111,6 +111,11 @@
     <dependencies>
     	<!--  Selenium drivers -->
     	<dependency>
+		    <groupId>org.javassist</groupId>
+		    <artifactId>javassist</artifactId>
+		    <version>3.18.1-GA</version> 
+		</dependency>
+    	<dependency>
     		<groupId>org.seleniumhq.selenium</groupId>
 	        <artifactId>selenium-java</artifactId>
 	        <version>2.53.0</version>
@@ -295,26 +300,23 @@
 	             Added to avoid problems with the maven plugin for 
 				 eclipse
 	        -->
-	        <plugin>
-	        	<groupId>org.pitest</groupId>
-	        	<artifactId>pitest</artifactId>
-	        	<version>1.1.11</version>
-	        	<configuration>
-	        		<threads>2</threads>
-	        		<targetClasses>
-	        			<param>es.udc.pojoapp.model.*</param>
-	        		</targetClasses>
-	        		<testClasses>
-	        			<param>es.udc.pojoapp.test.*.*</param>
-	        		</testClasses>
-	        		<excludedClasses>
-			            <param>es.udc.pojoapp.web.*</param>
-			            <param>**.*UserWebTest.java</param>
-			            <param>**.*Layout.java</param>
-			            <param>**.*Estado.java</param>
-			        </excludedClasses>
-	        	</configuration>
-	        </plugin>
+		        <plugin>
+		          <groupId>org.pitest</groupId>
+					<artifactId>pitest-maven</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<targetClasses>
+							<param>es.udc.pojoapp.model*</param>
+						</targetClasses>
+						<excludedClasses>
+							<param>es.udc.pojoapp.model.userservice*</param>
+							<param>es.udc.pojoapp.model.util.OptionState*</param>
+						</excludedClasses>
+						<targetTests>
+							<param>es.udc.pojoapp.test.model*</param>
+						</targetTests>
+					</configuration>
+		        </plugin>
 				<plugin>
 					<groupId>org.eclipse.m2e</groupId>
 					<artifactId>lifecycle-mapping</artifactId>
@@ -346,16 +348,44 @@
 
             <!-- ========================================================== -->
             <!-- Compiler configuration -->
+                <plugin>
+				    <groupId>com.lazerycode.jmeter</groupId>
+				    <artifactId>jmeter-maven-plugin</artifactId>
+				    <version>2.0.3</version>
+				    <executions>
+				        <execution>
+				            <id>jmeter-tests</id>
+				            <phase>verify</phase>
+				            <goals>
+				                <goal>jmeter</goal>
+				            </goals>
+				       </execution>
+				    </executions>
+				</plugin>
+				<plugin>
+				  <groupId>com.lazerycode.jmeter</groupId>
+				  <artifactId>jmeter-analysis-maven-plugin</artifactId>
+				  <executions>
+				    <execution>
+				      <goals>
+				        <goal>analyze</goal>
+				      </goals>
+				      <configuration>
+				        <source>${project.build.directory}/**/*.jtl</source>
+						<targetDirectory>${project.build.directory}/results</targetDirectory>
+						<maxSamples>50000</maxSamples>
+				        <remoteResourcesFromUntilDateFormat>HH:mm_yyyyMMdd</remoteResourcesFromUntilDateFormat>
+				      </configuration>
+				    </execution>
+				  </executions>
+				</plugin>
             <plugin>
             	<groupId>org.jacoco</groupId>
             	<artifactId>jacoco-maven-plugin</artifactId>
             	<version>0.7.7.201606060606</version>
             	<configuration>
             		<excludes>
-            			<exclude>**/Layout.java</exclude>
-            			<exclude>**/Index.java</exclude>
-            			<exclude>**/BetCreated.java</exclude>
-            			<exclude>**/Bets.java</exclude>
+            			<exclude>es.udc.pojoapp.web*</exclude>
             		</excludes>
             	</configuration>
             	<executions>
@@ -372,7 +402,7 @@
             			</goals>
             		</execution>
             	</executions>
-            </plugin>
+			</plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -516,6 +546,37 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<configuration>
+					<instrumentation>
+						<excludes>
+							<exclude>es.udc.pojoapp.model.userservice*</exclude>
+							<exclude>es.udc.pojoapp.web*</exclude>
+						</excludes>
+					</instrumentation>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<configuration>
+					<instrumentation>
+						<excludes>
+							<exclude>es/udc/pojoapp/model/userservice/**/*.class</exclude>
+							<exclude>es/udc/pojoapp/model/util/**/*.class</exclude>
+							<exclude>es/udc/pojoapp/web/**/*.class*</exclude>
+						</excludes>
+					</instrumentation>
+					<check />
+					<formats>
+						<format>html</format>
+						<format>xml</format>
+					</formats>
+				</configuration>
+			</plugin>
 
         </plugins>
 

@@ -21,7 +21,7 @@ import es.udc.pojoapp.model.userservice.UserService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { SPRING_CONFIG_FILE, SPRING_CONFIG_TEST_FILE })
 @Transactional
-public class UserServiceTestQuickcheck {
+public class UserServiceQuickcheckTest {
 
 	@Autowired
 	private UserService userService;
